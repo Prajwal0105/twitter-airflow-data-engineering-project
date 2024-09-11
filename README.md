@@ -1,18 +1,36 @@
-# Twitter Data ETL Pipeline Using Airflow
+# Twitter Data ETL Pipeline: Orchestrating with Airflow and AWS
 
-## Description
-This is End-To-End Data Engineering Project using Airflow and Python. In this project, we will extract data using Twitter API, use python to transform data, deploy the code on Airflow/EC2 and save the final result on Amazon S3
+## Project Overview
+This project demonstrates an end-to-end data engineering solution using **Apache Airflow** and **Python**. It focuses on extracting data from the **Twitter API**, transforming it using Python, and deploying the workflow on **Amazon EC2** with the final output stored in **Amazon S3**. The project showcases how to effectively orchestrate and automate data pipelines for real-time data extraction and storage.
 
-## Dataset/API
-This API contains information about Tweets, User, Retweets, Tweets created at - [Twitter API](https://developer.twitter.com/en/docs/twitter-api)
+## API and Dataset
+The project extracts data from Twitter, including information about:
+- Tweets
+- Users
+- Retweets
+- Timestamps
+
+**Twitter API**:  
+For more details, visit the official documentation: [Twitter API](https://developer.twitter.com/en/docs/twitter-api)
 
 ## Services Used
-1. **Apache Airflow:** Apache Airflow is an open-source platform designed to programmatically author, schedule, and monitor workflows. It is particularly well-suited for orchestrating complex data workflows, automating tasks, and managing dependencies between different tasks or processes.
-2. **Amazon EC2:** Amazon Elastic Compute Cloud (Amazon EC2) is a web service offered by Amazon Web Services (AWS) that provides resizable compute capacity in the cloud. It allows users to launch and manage virtual servers, known as EC2 instances, to run applications and workloads.
-3. **S3(Simple Storage Service):** Amazon S3 is a highly scalable object storage service that can store and retrieve any amount of data from anywhere on thr web. It is commonly used to store and distribute large media files data backups and static website files.
 
-## Install Packages
-```
+1. **Apache Airflow**:  
+   Airflow is used to orchestrate and automate the data pipeline. It allows for scheduling and monitoring workflows, making it ideal for managing ETL processes.
+
+2. **Amazon EC2**:  
+   EC2 provides scalable compute capacity for deploying Airflow and running the Python scripts. This cloud infrastructure ensures the pipeline can handle large-scale data extraction and processing.
+
+3. **Amazon S3**:  
+   S3 is used for storing the final transformed data. This highly scalable object storage service is ideal for saving data backups and static files for future analysis or distribution.
+
+---
+
+## Installation
+
+To set up the project, follow these steps to install the necessary dependencies:
+
+```bash
 sudo apt-get update
 sudo apt install python3-pip
 sudo pip install apache-airflow
@@ -21,5 +39,36 @@ sudo pip install s3fs
 sudo pip install tweepy
 ```
 
+---
+
 ## Project Execution Flow
-Extract data from Twitter API  -> Run Extract Code -> Transform Json data into proper DF structure -> Store Data in Local -> Create EC2 Instance -> Deploy Airflow on EC2 machine -> Write DAG onto ETL code -> Store it in S3 bucket
+
+1. **Extract Data from Twitter API**:  
+   Using the **Tweepy** library, the project connects to the Twitter API and extracts relevant data (Tweets, users, retweets, etc.).
+
+2. **Transform Data**:  
+   The raw JSON data from the API is transformed into a structured DataFrame using **Pandas**. This ensures the data is cleaned and ready for storage.
+
+3. **Local Storage**:  
+   The transformed data is temporarily stored in a local directory before being uploaded to the cloud.
+
+4. **Create EC2 Instance**:  
+   An **Amazon EC2** instance is launched to host the Airflow environment, where the entire pipeline is deployed and managed.
+
+5. **Airflow DAG Setup**:  
+   A Directed Acyclic Graph (DAG) is written in Airflow to orchestrate the ETL process, automating the execution of extraction, transformation, and loading tasks.
+
+6. **Store in S3**:  
+   Finally, the cleaned and structured data is stored in an **S3 bucket** for long-term storage and future analysis.
+
+---
+
+## Future Enhancements
+- **Real-time Data Streaming**: Integrate **AWS Kinesis** for real-time data streaming and processing.
+- **Data Visualization**: Use **Amazon QuickSight** or **Tableau** to create dashboards from the data stored in S3.
+- **Error Handling & Logging**: Improve pipeline resilience by adding better error-handling mechanisms and detailed logging in Airflow.
+
+---
+
+## Conclusion
+This project highlights the use of Apache Airflow for orchestrating an ETL pipeline, leveraging **Amazon EC2** for computation and **S3** for storage. It demonstrates a scalable approach to collecting and managing Twitter data for analysis and reporting.
